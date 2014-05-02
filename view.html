@@ -8,11 +8,24 @@
 	</head>
 	<body>
 
-		<div id="chart" style="width: 100%; height: 500px;"></div>
+		<div id="w1" class="widget">
+			<button type="button" id="wb1" value="bar">Change Chart Type</button>
+			<div id="chart1" class="kpi" style="width: 50%; height: 500px;">
+				<img src="images/spinner.gif" class="spinner" />
+			</div>
+		</div>
+		<div id="chart2" class="kpi" style="width: 50%; height: 500px;">
+			<img src="images/spinner.gif" class="spinner" />
+		</div>
 
+	<script type="text/javascript">
+		$(document).load(function (){
+		});
+	</script>
 		<script type="text/javascript">
 			google.load("visualization", "1", {packages:["corechart"]});
-			google.setOnLoadCallback(doStats);
+			google.setOnLoadCallback(doStats(document.getElementById("chart1")));
+			google.setOnLoadCallback(doStats(document.getElementById("chart2")));
 		</script>
 	</body>
 </html>

@@ -1,12 +1,10 @@
-function doStats() {
+function doStats(div) {
 
 	var staticsOverview = {
 
 		init: function() {
 			console.log("init");
-			//google.load("visualization", "1", {packages: ["corechart"]});
-			//google.setOnLoadCallback(this.drawChart());
-			this.drawChart();
+			this.drawChart(div);
 		},
 
 		myAlert: function () {
@@ -14,7 +12,7 @@ function doStats() {
 			console.log("inside my alert" );
 		},
 
-		drawChart: function drawChart() {
+		drawChart: function (chartDiv) {
 
 			var jsonData = $.ajax({
 				url: "data.json",
@@ -26,11 +24,10 @@ function doStats() {
 			title: 'Your Chart Title'
 			};
 
-			this.myAlert();
-
 			var data = new google.visualization.DataTable(jsonData);
 
-			var chart = new google.visualization.LineChart(document.getElementById('chart'));
+			var chart = new google.visualization.LineChart(chartDiv);
+
 			chart.draw(data, options);
 		},
 
