@@ -9,8 +9,8 @@
 	<body>
 
 		<div id="w1" class="widget">
-			<button type="button" id="wb1" value="bar">Change Chart Type</button>
-			<div id="chart1" class="kpi" style="width: 50%; height: 500px;">
+			<button type="button" class="widgetButton" id="wb1" value="bar">Change Chart Type</button>
+			<div id="chart1" class="kpi"  style="width: 50%; height: 500px;">
 				<img src="images/spinner.gif" class="spinner" />
 			</div>
 		</div>
@@ -18,14 +18,22 @@
 			<img src="images/spinner.gif" class="spinner" />
 		</div>
 
-	<script type="text/javascript">
-		$(document).load(function (){
-		});
-	</script>
 		<script type="text/javascript">
 			google.load("visualization", "1", {packages:["corechart"]});
-			google.setOnLoadCallback(doStats(document.getElementById("chart1")));
-			google.setOnLoadCallback(doStats(document.getElementById("chart2")));
+			google.setOnLoadCallback(doKpi(document.getElementById("chart1"), {}));
+			google.setOnLoadCallback(doKpi(document.getElementById("chart2"), {}));
+		</script>
+		<script type="text/javascript">
+			$(document).ready(function (){
+					$('.widgetButton').click(function(){
+						//$('this').changeWidget();
+						var kpi = $(this).parent(".widget").children(".kpi");
+						jQuery.data( kpi, "type", "column" ); 
+						console.log( jQuery.data(kpi, "type") );
+						var opts = { "type" : jQuery.data(kpi, "type") };
+						doKpi(kpi.get(0), opts );
+					});
+			});
 		</script>
 	</body>
 </html>
