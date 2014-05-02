@@ -9,31 +9,47 @@
 	<body>
 
 		<div id="w1" class="widget">
-			<button type="button" class="widgetButton" id="wb1" value="bar">Change Chart Type</button>
+			<select class="widgetType" id="wb1">
+				<option value="column">Column</option>
+				<option value="line">Line</option>
+			</select>
 			<div id="chart1" class="kpi"  style="width: 50%; height: 500px;">
 				<img src="images/spinner.gif" class="spinner" />
 			</div>
 		</div>
-		<div id="chart2" class="kpi" style="width: 50%; height: 500px;">
-			<img src="images/spinner.gif" class="spinner" />
+		<div id="w2" class="widget">
+			<select class="widgetType" id="wb1">
+				<option value="column">Column</option>
+				<option value="line">Line</option>
+			</select>
+			<div id="chart2" class="kpi" style="width: 50%; height: 500px;">
+				<img src="images/spinner.gif" class="spinner" />
+			</div>
 		</div>
 
 		<script type="text/javascript">
 			google.load("visualization", "1", {packages:["corechart"]});
-			google.setOnLoadCallback(doKpi(document.getElementById("chart1"), {}));
-			google.setOnLoadCallback(doKpi(document.getElementById("chart2"), {}));
 		</script>
+
 		<script type="text/javascript">
 			$(document).ready(function (){
-					$('.widgetButton').click(function(){
+
+					var opts = { "type" : "line" };
+					//google.setOnLoadCallback(doKpi(document.getElementById("chart1"), opts));
+					//google.setOnLoadCallback(doKpi(document.getElementById("chart2"), opts));
+					doKpi(document.getElementById("chart1"), opts);
+					doKpi(document.getElementById("chart2"), opts);
+
+					$('.widgetType').change(function(e){
 						//$('this').changeWidget();
 						var kpi = $(this).parent(".widget").children(".kpi");
-						jQuery.data( kpi, "type", "column" ); 
-						console.log( jQuery.data(kpi, "type") );
-						var opts = { "type" : jQuery.data(kpi, "type") };
-						doKpi(kpi.get(0), opts );
+						var opts = { "type" : $(this).val() };
+						doKpi(kpi.get(0), opts);
+						e.preventDefault();
 					});
+
 			});
 		</script>
+
 	</body>
 </html>

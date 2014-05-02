@@ -2,13 +2,13 @@ function doKpi(div, opts) {
 	var staticsOverview = {
 		init: function() {
 			console.log("init drawing of chart: " + div + " opts: " + opts);
-			this.drawChart(div, opts);
+			this.drawChart();
 		},
 		myAlert: function (msg) {
 			alert( "inside my alert: " + msg );
 			console.log("inside my alert: " + msg);
 		},
-		drawChart: function (chartDiv, opts) {
+		drawChart: function () {
 			var jsonData = $.ajax({
 				url: "data.json",
 				dataType:"json",
@@ -18,17 +18,16 @@ function doKpi(div, opts) {
 				title: 'Your Chart Title'
 			};
 			var data = new google.visualization.DataTable(jsonData);
-			if(!("type" in opts)) { opts["type"] == undefined; }  
 			switch(opts["type"])
 			{
 				case "column":
-					var chart = new google.visualization.ColumnChart(chartDiv);
+					var chart = new google.visualization.ColumnChart(div);
 				break;
 				case "line":
-					var chart = new google.visualization.LineChart(chartDiv);
+					var chart = new google.visualization.LineChart(div);
 				break;
 				default:
-					var chart = new google.visualization.LineChart(chartDiv);
+					var chart = new google.visualization.LineChart(div);
 			}
 			chart.draw(data, options);
 		},
