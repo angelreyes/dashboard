@@ -9,12 +9,15 @@
 	<body>
 
 		<div id="w1" class="widget">
+			<div id="control1"></div>
 			<select class="widgetType" id="wb1">
 				<option value="column">Column</option>
 				<option value="line">Line</option>
 			</select>
-			<div id="chart1" class="kpi"  style="width: 50%; height: 500px;">
-				<img src="images/spinner.gif" class="spinner" />
+			<div id="dashboard1">
+				<div id="chart1" class="kpi"  style="width: 50%; height: 500px;">
+					<img src="images/spinner.gif" class="spinner" />
+				</div>
 			</div>
 		</div>
 		<div id="w2" class="widget">
@@ -22,27 +25,27 @@
 				<option value="column">Column</option>
 				<option value="line">Line</option>
 			</select>
-			<div id="chart2" class="kpi" style="width: 50%; height: 500px;">
-				<img src="images/spinner.gif" class="spinner" />
+			<div id="dashboard2">
+				<div id="chart2" class="kpi" style="width: 50%; height: 500px;">
+					<img src="images/spinner.gif" class="spinner" />
+				</div>
 			</div>
 		</div>
 
 		<script type="text/javascript">
-			google.load("visualization", "1", {packages:["corechart"]});
+			google.load("visualization", "1", {packages:["corechart","controls"]});
 		</script>
 
 		<script type="text/javascript">
 			$(document).ready(function (){
 
 					var opts = { "type" : "line" };
-					//google.setOnLoadCallback(doKpi(document.getElementById("chart1"), opts));
-					//google.setOnLoadCallback(doKpi(document.getElementById("chart2"), opts));
 					doKpi(document.getElementById("chart1"), opts);
-					doKpi(document.getElementById("chart2"), opts);
+//					doKpi(document.getElementById("chart2"), opts);
 
 					$('.widgetType').change(function(e){
 						//$('this').changeWidget();
-						var kpi = $(this).parent(".widget").children(".kpi");
+						var kpi = $(this).parent(".widget").find(".kpi");
 						var opts = { "type" : $(this).val() };
 						doKpi(kpi.get(0), opts);
 						e.preventDefault();
