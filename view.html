@@ -65,6 +65,8 @@
 			$(document).ready(function (){
 
 					// initialization
+					var kpis = $.ajax("kpi.json", { async : false });
+					kpi = kpis.responseJSON.kpi;
 					$( "#widgets" )
 						.find( ".kpi" )
 						.each(function() {
@@ -74,6 +76,8 @@
 								doOpts(element, "dash", $(widget).find(".dash").get(0));
 								doOpts(element, "type", "column");
 								doOpts(element, "filter", getMonths("last12"));
+								doOpts(element, "source", getObjWhenPropertyEquals(kpi, "id", $(this).attr("id")).source);
+								doOpts(element, "title", getObjWhenPropertyEquals(kpi, "id", $(this).attr("id")).title);
 								doChart(element, doOpts(element));
 							});
 

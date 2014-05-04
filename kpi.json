@@ -1,0 +1,6 @@
+{
+  "kpi": [ 
+    {"id": "chart1", "source": "product.json", "title" : "Jeager Sales"},
+    {"id": "chart2", "source": "customer.json", "title" : "Sales By Customers (Countries)"}
+  ]
+}

@@ -1,3 +1,18 @@
+function getObjWhenPropertyEquals(parentObj, prop,  val){
+// from http://stackoverflow.com/questions/12946353/javascript-find-object-in-array-by-value-and-append-additional-value
+// by Matt Stone
+	for (var i = 0,  l = parentObj.length; i < l; i++) {
+		// check the obj has the property before comparing it
+		if (typeof parentObj[i][prop] === 'undefined') continue;
+
+		// if the obj property equals our test value return the obj
+		if (parentObj[i][prop] === val) return parentObj[i];
+	}
+
+	// didn't find an object with the property
+	return false;
+}
+
 function doOpts(div, key, value) {
 
 	if(typeof div === 'undefined') {
@@ -56,7 +71,7 @@ function doChart(div, opts) {
     drawChart: function () {
 
       var jsonData = $.ajax({
-        url: "data.json",
+				url: opts.source, //"data.json",
 				dataType:"json",
 				async: false
       }).responseText;
@@ -100,6 +115,7 @@ function doChart(div, opts) {
         'chartType': charttype,
         'containerId': div,
         'options': {
+					'title': opts.title
         }
       });
 
