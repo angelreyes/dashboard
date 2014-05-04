@@ -57,8 +57,8 @@ function doChart(div, opts) {
 
       var jsonData = $.ajax({
         url: "data.json",
-      dataType:"json",
-      async: false
+				dataType:"json",
+				async: false
       }).responseText;
 
       var options = {
@@ -69,7 +69,7 @@ function doChart(div, opts) {
 
       var filter = new google.visualization.ControlWrapper({
         'controlType': 'CategoryFilter',                          
-        'containerId': 'control1', //param
+        'containerId': opts.control, //param
         'options': {                                              
           'filterColumnLabel': 'Month',
           'ui': {
@@ -80,7 +80,7 @@ function doChart(div, opts) {
             'label' : 'Month '
           }                
 				},
-				'state' : { 'selectedValues' : opts["filter"] }
+				'state' : { 'selectedValues' : opts.filter }
       });
 
       var charttype = "";
@@ -103,7 +103,7 @@ function doChart(div, opts) {
         }
       });
 
-      new google.visualization.Dashboard(div).
+      new google.visualization.Dashboard(opts.dash).
       bind(filter, chartwrapper).
       draw(data, options);
 

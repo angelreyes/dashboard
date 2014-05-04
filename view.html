@@ -10,7 +10,12 @@
 
 		<div id="toolbar">
 			<table width="100%">
-				<tr>
+				<tr style="background-color:#27ae60;">
+					<td colspan="2" align="center">
+						<h2>Interactive Dashboard Example</h2>
+					</td>
+				</tr>
+				<tr style="background-color:#33ce75;">
 					<td align="left">
 						<select id="months">
 							<option value="last12">Last 12 Months</option>
@@ -18,8 +23,6 @@
 							<option value="last3">Last 3 Months</option>
 							<option value="previousYear">Previous Year</option>
 						</select>
-					</td>
-					<td>
 					</td>
 					<td align="right">
 						<button id="refresh">Refresh</button>
@@ -29,24 +32,25 @@
 		</div>
 		<div id="widgets">
 			<div id="w1" class="widget">
-				<div id="control1" ></div>
+				<div id="control1" class="filter" style="display:none"></div>
 				<select class="widgetType" id="wb1">
 					<option value="column">Column</option>
 					<option value="line">Line</option>
 				</select>
-				<div id="dashboard1">
-					<div id="chart1" class="kpi"  style="width: 50%; height: 500px;">
+				<div id="dashboard1" class="dash">
+					<div id="chart1" class="kpi"  style="width: 100%; height: 500px;">
 						<img src="images/spinner.gif" class="spinner" />
 					</div>
 				</div>
 			</div>
 			<div id="w2" class="widget">
+				<div id="control2" class="filter" style="display:none"></div>
 				<select class="widgetType" id="wb1">
 					<option value="column">Column</option>
 					<option value="line">Line</option>
 				</select>
-				<div id="dashboard2">
-					<div id="chart2" class="kpi" style="width: 50%; height: 500px;">
+				<div id="dashboard2" class="dash">
+					<div id="chart2" class="kpi" style="width: 100%; height: 500px;">
 						<img src="images/spinner.gif" class="spinner" />
 					</div>
 				</div>
@@ -60,29 +64,34 @@
 		<script type="text/javascript">
 			$(document).ready(function (){
 
-					var options = { 
-						"type" : "line", 
-						"filter" : getMonths("last12"), 
-					};
-					// create each HTML widget
-					// create each chart
-					doOpts(document.getElementById("chart1"), "type", options.type);
-					doOpts(document.getElementById("chart1"), "filter", options.filter);
-					doChart(document.getElementById("chart1"), options);
-//					doChart(document.getElementById("chart2"), doOpts);
-					// end	
+					// initialization
+					$( "#widgets" )
+						.find( ".kpi" )
+						.each(function() {
+								widget = $(this).parent().parent();
+								element = $(this).get(0);
+								doOpts(element, "control", $(widget).find(".filter").get(0));
+								doOpts(element, "dash", $(widget).find(".dash").get(0));
+								doOpts(element, "type", "column");
+								doOpts(element, "filter", getMonths("last12"));
+								doChart(element, doOpts(element));
+							});
 
 					// change time frame
 					$('#months').change(function(e){
-						doOpts( document.getElementById("chart1"), "filter", getMonths( $(this).val()) );
-						doChart(document.getElementById("chart1"), doOpts(document.getElementById("chart1")));
+						that = $(this);
+						$( "#widgets" )
+							.find( ".kpi" )
+							.each(function() {
+									element = $(this).get(0)
+									doOpts(element, "filter", getMonths( $(that).val() ));
+									doChart(element, doOpts(element));
+								});
 						e.preventDefault();
 					});
-					
 
 					// change chart type
 					$('.widgetType').change(function(e){
-						//$('this').changeWidget();
 						var kpi = $(this).parent(".widget").find(".kpi").get(0);
 						doOpts(kpi, "type", $(this).val() );
 						doChart(kpi, doOpts(kpi));
