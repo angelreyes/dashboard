@@ -113,7 +113,7 @@ function doChart(div, opts) {
 
       new google.visualization.Dashboard(opts.dash).
         bind(filter, chartwrapper).
-        draw(data, options);
+        draw(data);
 
       return filter;
     }, //end-of drawChart
