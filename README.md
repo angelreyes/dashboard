@@ -4,6 +4,6 @@ This is an example of how to integrate JQuery and Google Charts to create intera
 
 You might see it live on:
 
-http://apps.angelreyes.me/dashboards
+http://apps.angelreyes.me/dashboard
 
 Profit!
